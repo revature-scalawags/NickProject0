@@ -6,16 +6,29 @@ import scala.util.Success
 import scala.util.Failure
 
 object OWApi {
-    // Use this to access the JSON for any profile given platform and name.
+    /**
+      * This method returns a JsObject made from the player stats json which is given by the Overwatch API.
+      * It also handles cases that the profile cannot be 
+      *
+      * @param platform The platform the profile plays on.
+      * @return JsObject parsed from the json associated with requested player stats.
+      */
     def getProfileJson(platform: String): JsObject = {
         println()
         tryProfile(platform) match {
-            case Success(value) => return value
+            case Success(value) => println(); return value
             case Failure(exception) => println(); println("Profile not found, please try again."); getProfileJson(platform)
         }
     }
 
-    // This is a helper method for getProfileJson
+    /**
+      * Small helper method for getProfileJson. This method is the one which actually makes the call to the API.
+      * The result returned is wrapped in either Success or Failure to avoid exceptions which would occur if the user tries
+      * to access a profile that does not exist.
+      * 
+      * @param platform The platform the profile plays on.
+      * @return Success(JsObject) if profile is found, Failure(Exception) if no profile is found.
+      */
     def tryProfile(platform: String): Try[JsObject] = Try {
         val profile = readLine()
         val requestURL = s"https://ovrstat.com/stats/$platform/$profile"
