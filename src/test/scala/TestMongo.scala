@@ -1,8 +1,8 @@
 import org.scalatest._
-import org.scalatest.flatspec.AnyFlatSpec
 import org.mongodb.scala.bson.collection.immutable.Document
 import com.mongodb.client.result.InsertOneResult
+import org.scalatest.funsuite.AnyFunSuite
 
-object TestMongo extends AnyFlatSpec{
+object TestMongo extends AnyFunSuite{
 
 }

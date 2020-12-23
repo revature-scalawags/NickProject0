@@ -1,8 +1,9 @@
 import spray.json._
 import scala.util.{Try,Success,Failure}
 import scala.io.StdIn.readLine
+import com.typesafe.scalalogging.LazyLogging
 
-object Tools {
+object Tools extends LazyLogging{
 
   /**
       * This method helps the user navigate the json by iterating through the json like a tree. 
@@ -16,7 +17,7 @@ object Tools {
         val input = readLine()
         println()
         Tools.tryAsJson(root, input) match {
-            case Success(result) => println("Input accepted. Please choose from the following:")
+            case Success(result) => println("Input accepted. Please choose from the following:"); logger.info("User input a valid field.")
                 navigateJson(result)
 
             case Failure(exception) => navigateHelper(root, input)
@@ -26,8 +27,8 @@ object Tools {
 
     def navigateHelper(root: JsObject, input: String) = {
         Tools.tryField(root, input) match {
-            case Failure(exception) => println("Invalid input, please choose from the following:"); navigateJson(root)
-            case Success(value) => println(input + " is " + value)
+            case Failure(exception) => println("Invalid input, please choose from the following:"); logger.info("User input an invalid field. Prompting user to try again."); navigateJson(root)
+            case Success(value) => println(input + " is " + value); logger.info("User reached end of json. Displaying requested Info.")
         }
     }
 
@@ -43,9 +44,9 @@ object Tools {
         println()
 
         platform match {
-            case "psn" => return platform
-            case "xbl" => return platform
-            case "pc" => return platform
+            case "psn" => logger.info("User has input psn as platform."); return platform
+            case "xbl" => logger.info("User has input xbl as platform."); return platform
+            case "pc" => logger.info("User has input pc as platform."); return platform
             case _ => println("Invalid Platform, try again."); getPlatform
         }
     }

@@ -13,4 +13,7 @@ class Test extends AnyFunSuite {
 
         assert(Tools.getField("name", profile).toString.substring(1, 8) == "ditty40")
     }
+
+    //test 2
+    
 }

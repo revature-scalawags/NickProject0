@@ -19,9 +19,9 @@ object OWStats extends App {
 
     //val profileDoc = Document(profile.toString())
 
-    //val profileDoc = Document("Test" -> "Result")
+    val profileDoc = Document("Test" -> "Result")
 
-    //Mongo.add(profileDoc)
+    Mongo.add(profileDoc)
 
     println("Profile found! Now please enter the info you would like to see. You may choose from any of the following:")
 

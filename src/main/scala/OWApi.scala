@@ -4,8 +4,9 @@ import scala.util.Try
 import scala.io.StdIn.readLine
 import scala.util.Success
 import scala.util.Failure
+import com.typesafe.scalalogging.LazyLogging
 
-object OWApi {
+object OWApi extends LazyLogging{
     /**
       * This method returns a JsObject made from the player stats json which is given by the Overwatch API.
       * It also handles cases that the profile cannot be 
@@ -16,8 +17,8 @@ object OWApi {
     def getProfileJson(platform: String): JsObject = {
         println()
         tryProfile(platform) match {
-            case Success(value) => println(); return value
-            case Failure(exception) => println(); println("Profile not found, please try again."); getProfileJson(platform)
+            case Success(value) => println(); logger.info("Profile found, JsObject successfully created."); return value
+            case Failure(exception) => println(); println("Profile not found, please try again."); logger.info("Profile not found. Prompting user to try again."); getProfileJson(platform)
         }
     }
 
@@ -32,6 +33,7 @@ object OWApi {
     def tryProfile(platform: String): Try[JsObject] = Try {
         val profile = readLine()
         val requestURL = s"https://ovrstat.com/stats/$platform/$profile"
+        logger.info("Trying to find profile at " + requestURL)
         scala.io.Source.fromURL(requestURL).mkString.parseJson.asJsObject
     }
 }
