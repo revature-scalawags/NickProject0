@@ -1,5 +1,5 @@
 # Overwatch Stats Retriever
-A simple project to retrieve statistics from Overwatch Profiles
+A simple project that retrieves statistics on Overwatch Profiles
 
 ## Compile
 > sbt compile
@@ -16,6 +16,6 @@ Java
 # Features
 Can retrieve any piece of information from any Overwatch profile if provided the username and platform.
 # Usage
-1. Navigate to the downloaded "OWSTATS" folder and run the command:
+1. Navigate to OWSTATS folder and run the command:
 >sbt run
 2. Input information into the terminal as directed by the program.

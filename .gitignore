@@ -37,3 +37,4 @@ project/plugins/project/
 
 # End of https://www.toptal.com/developers/gitignore/api/scala,metals,visualstudiocode,sbt
 launch.json
+logback.xml
