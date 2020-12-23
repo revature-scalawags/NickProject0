@@ -17,6 +17,11 @@ import tour.Helpers._
 
 object Mongo extends LazyLogging{
 
+    /**
+      * This method accesses the mongo database and adds the specified document to the collection.
+      *
+      * @param doc The document to be added to the collection.
+      */
     def add(doc: Document) = {
        // System.setProperty("jdk.tls.client.protocols","TLSv1.2")
         //System.setProperty("https.protocols", "TLSv1.2")

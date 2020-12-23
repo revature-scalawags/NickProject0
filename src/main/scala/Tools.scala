@@ -6,10 +6,10 @@ import com.typesafe.scalalogging.LazyLogging
 object Tools extends LazyLogging{
 
   /**
-      * This method helps the user navigate the json by iterating through the json like a tree. 
+      * This method helps the user navigate the json by iterating through the json like a tree.
       *
-      * @param root
-      * @return 
+      * @param root - The JsObject which will be explored.
+      * @return - The value which is associated with user input key.
       */
     def navigateJson(root : JsObject): JsObject = {
         Tools.listFields(root)
@@ -25,6 +25,16 @@ object Tools extends LazyLogging{
      }
     }
 
+    /**
+      * Small helper that simply differentiates between two cases. Tools.tryAsJson may return Failure(exception)
+      * in two cases. Either the user input a key which does not exist or the key does exist but the
+      * value cannot be interpreted as a JsObject. If this method returns Falailure(exception), the user has
+      * input an invalid key. Otherwise, the key is valid and the info is displayed to user.
+      *
+      * @param root A JsObject
+      * @param input The key that we are trying to access in the JsObject
+      * @return
+      */
     def navigateHelper(root: JsObject, input: String) = {
         Tools.tryField(root, input) match {
             case Failure(exception) => println("Invalid input, please choose from the following:"); logger.info("User input an invalid field. Prompting user to try again."); navigateJson(root)
@@ -62,6 +72,12 @@ object Tools extends LazyLogging{
         profile.fields.get(info).get
     }
 
+
+    /**
+      * Simply lists the fields of the JsObject, json.
+      *
+      * @param json The JsObject which will have its fields printed to console.
+      */
     def listFields(json: JsObject) = {
       println(json.fields.keys.toString().substring(8,json.fields.keys.toString.length-1))
     }
